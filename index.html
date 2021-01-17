@@ -1,7 +1,873 @@
-extends includes/layout.pug
+<!DOCTYPE html>
+<html lang="en">
 
-block content
-  include ./includes/mixins/post-ui.pug
-  #recent-posts.recent-posts
-    +postUI
-    include includes/pagination.pug
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body,
+        html {
+            padding: 0;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .menu {
+            list-style: none;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .menu li {
+            float: left;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            font-size: 1.14em;
+            margin: 0 3px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            color: #555;
+        }
+
+        .menu li a:hover {
+            background: #32c1ed;
+            color: #fff;
+        }
+
+        .menuContainer {
+            display: inline-block;
+            float: right;
+            height: 115px;
+            line-height: 115px;
+        }
+
+        .nav-top-cont {
+            background: #fff;
+            margin: 0;
+            border-radius: 0;
+            height: 115px;
+            padding-left: 80px;
+        }
+
+        .youshi-container {
+            background: #ededed;
+            width: 100%;
+            height: 153px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .youshi {
+            width: 190px;
+            border-left: 1px solid #000;
+        }
+
+        .youshi1 {
+            border-left: none;
+        }
+
+        .youshi span {
+            display: block;
+            width: 130px;
+            height: 83px;
+            margin-left: 30px;
+        }
+
+        .youshi1 span {
+            background-image: url("./img/yue-sprit0054.png");
+            background-position: 130px 0;
+        }
+
+        .youshi2 span {
+            background-image: url("./img/yue-sprit0054.png");
+            background-position: 0 0;
+        }
+
+        .youshi3 span {
+            background-image: url("./img/yue-sprit0054.png");
+            background-position: 0 -84px;
+        }
+
+        .youshi4 span {
+            width: 106px;
+            height: 74px;
+            background-image: url("./img/yue-sprit0054.png");
+            background-position: 0 -172px;
+        }
+
+        .youshi5 span {
+            width: 106px;
+            height: 74px;
+            background-image: url(./img/yue-sprit0054.png);
+            background-position: -109px -170px;
+        }
+
+        .youshi6 span {
+            width: 106px;
+            height: 74px;
+            background-image: url("./img/yue-sprit0054.png");
+            background-position: 124px -88px;
+        }
+
+        .youshi-container2 {
+            background: #ededed;
+            display: none;
+        }
+
+        .yanshi-font {
+            font-weight: 800;
+        }
+
+        .youshi-2 {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .logoImg {
+            float: left;
+        }
+
+        .logoImg img {
+            width: 195px;
+            height: 80px;
+            margin-top: 18px;
+        }
+
+        .logo2 {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 16px 0 0 0;
+            padding-left: 25px;
+            color: #35c1ec;
+            font-size: 2.2em;
+            font-weight: 100;
+            letter-spacing: .3em;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .split {
+            display: inline-block;
+            vertical-align: middle;
+            height: 25px;
+            margin-left: 5px;
+            border-left: 1px solid #2fb4e9;
+        }
+
+        .menuToal {
+            display: none;
+        }
+
+        .search {
+            height: 150px;
+            background: url(./img/s_bg.jpg)
+        }
+
+        .input-group .form-control {
+            float: none;
+        }
+
+        .inputSty {
+            height: 53px;
+            font-size: 1.1em;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            outline: 0;
+            border: 0;
+            box-shadow: none;
+        }
+
+        .btnSty {
+            height: 53px;
+            width: 112px;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .imgSty {
+            height: 206px !important;
+            /*width: 100%;*/
+        }
+
+        .s-inner {
+            margin-top: 45px;
+        }
+
+        .borderTop {
+            border-top: 1px solid #ccc;
+        }
+
+        .borderRight {
+            border-right: 1px solid #ccc;
+        }
+
+        .znSmall {
+            display: block;
+            height: 80px;
+            text-align: center;
+            padding-top: 10px;
+            display: none;
+        }
+
+        .znSmall div {
+            background-color: #fff;
+        }
+
+        .news-area-l {
+            background: #fff;
+            padding: 0;
+        }
+
+        .i-c-item-outer {
+            padding-left: 10px;
+            padding-right: 10px
+        }
+
+        .znContainer {
+            background-color: #f5f5f5;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .menuDiv {
+                display: none;
+            }
+
+            .menuToal {
+                display: block;
+            }
+
+            .menuContainer {
+                height: 80px;
+                line-height: 80px;
+            }
+
+            .nav-top-cont {
+                padding-left: 20px;
+                height: 80px;
+                line-height: 80px;
+            }
+
+            .logoImg img {
+                width: 152px;
+                height: 60px;
+                margin-top: 5px;
+                margin-left: 20px;
+            }
+
+            .logo2 {
+                font-size: 1.6em;
+                margin: 0;
+                padding-left: 15px;
+            }
+
+            .youshi {
+                width: 156.66px;
+            }
+
+            .youshi span {
+                margin-left: 15px;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            .youshi {
+                width: 125px;
+                border: none;
+            }
+
+            .youshi span {
+                margin-left: 0px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .swiper {
+                display: none;
+            }
+
+            .menuContainer {
+                height: 60px;
+                line-height: 60px;
+            }
+
+            .nav-top-cont {
+                height: 60px;
+                line-height: 60px;
+                padding-left: 20px;
+            }
+
+            .logoImg img {
+                width: 122px;
+                height: 50px;
+                margin-top: -2px;
+                margin-left: 20px;
+            }
+
+            .logo2 {
+                font-size: 1.2em;
+                font-weight: 500;
+            }
+
+            .search {
+                height: 135px;
+            }
+
+            .inputSty,
+            .btnSty {
+                height: 40px;
+            }
+
+            .carousel {
+                width: 40%;
+                margin: 0 auto;
+            }
+
+            .lll {
+                margin-top: -21px;
+            }
+
+            .youshi {
+                width: 16.666%;
+            }
+
+            .youshi span {
+                transform: scale(0.6);
+            }
+
+        }
+
+        @media screen and (max-width: 650px) {
+            .search {
+                display: none;
+            }
+
+            .busblock-out {
+                padding: 0;
+            }
+        }
+
+        @media screen and (max-width: 560px) {
+            .logoImg img {
+                width: 105px;
+                height: 43px;
+                margin-top: 5px;
+                margin-left: 10px;
+            }
+
+            .znBig {
+                display: none;
+            }
+
+            .znSmall {
+                display: block;
+            }
+
+            .znText {
+                font-size: 20px;
+            }
+
+            .descript {
+                display: none;
+            }
+
+            .jjj {
+                display: none;
+            }
+
+            .youshi-container {
+                display: none;
+            }
+
+            .youshi-container2 {
+                display: block;
+            }
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid nav-top-cont">
+        <div class="row">
+            <div class="logoImg">
+                <img src="./img/yht-logo-195X80.png" alt="logo">
+                <span class="logo2">诚信立约</span>
+            </div>
+            <div class="right">
+                <div class="menuContainer">
+                    <ul class="menu">
+                        <div class="menuDiv">
+                            <li><a href="#">悦读</a></li>
+                            <li><a href="#">悦活动</a></li>
+                            <li><a href="#">智能合同</a></li>
+                            <li><a href="#">写合同</a></li>
+                            <li><a href="#">申合同</a></li>
+                            <li><span class="split">&nbsp;</span><a href="#"><i
+                                        class="glyphicon glyphicon-user"></i>登录</a></li>
+                        </div>
+                        <li class="menuToal"><a href="#"><i class="glyphicon glyphicon-menu-hamburger"></i></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="./img/20170725.jpg" alt="...">
+
+                </div>
+                <div class="item">
+                    <img src="./img/20170726.jpg" alt="...">
+
+                </div>
+                <div class="item">
+                    <img src="./img/20170505011.jpg" alt="...">
+
+                </div>
+
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="search">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 col-xs-12 s-inner">
+                    <div class="input-group">
+                        <input type="text" class="form-control inputSty" placeholder="请输入您要搜索的关键字，如股权转让合同、版权授权、劳动">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btnSty" type="button"><i
+                                    class="glyphicon glyphicon-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid znContainer">
+        <h3 class="znText" style="text-align: center">智能合同</h3>
+        <div class="smallDiv">
+            <div class="row znBig">
+                <div class="col-md-3 col-sm-4 col-xs-6 i-c-item-outer">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/gp.jpg" alt="...">
+                        <div class="caption">
+                            <ul class="list-group">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div>. . .</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 i-c-item-outer">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/gp.jpg" alt="...">
+                        <div class="caption">
+                            <ul class="list-group">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div>. . .</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 i-c-item-outer">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/gp.jpg" alt="...">
+                        <div class="caption">
+                            <ul class="list-group">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div>. . .</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 i-c-item-outer">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/gp.jpg" alt="...">
+                        <div class="caption">
+                            <ul class="list-group">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div>. . .</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 i-c-item-outer">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/gp.jpg" alt="...">
+                        <div class="caption">
+                            <ul class="list-group">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div>. . .</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 i-c-item-outer">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/gp.jpg" alt="...">
+                        <div class="caption">
+                            <ul class="list-group">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div>. . .</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 i-c-item-outer">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/gp.jpg" alt="...">
+                        <div class="caption">
+                            <ul class="list-group">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div>. . .</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 i-c-item-outer">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/gp.jpg" alt="...">
+                        <div class="caption">
+                            <ul class="list-group">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div>. . .</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row znSmall">
+                <div class="col-xs-3 borderRight">
+                    <a href="#">
+                        <img src="./img/guquan_mini.png" alt="guquan">
+                        <p style="text-align: center">股权</p>
+                    </a>
+                </div>
+                <div class="col-xs-3 borderRight">
+                    <a href="#">
+                        <img src="./img/guquan_mini.png" alt="guquan">
+                        <p style="text-align: center">股权</p>
+                    </a>
+                </div>
+                <div class="col-xs-3 borderRight">
+                    <a href="#">
+                        <img src="./img/guquan_mini.png" alt="guquan">
+                        <p style="text-align: center">股权</p>
+                    </a>
+                </div>
+                <div class="col-xs-3">
+                    <a href="#">
+                        <img src="./img/guquan_mini.png" alt="guquan">
+                        <p style="text-align: center">股权</p>
+                    </a>
+                </div>
+                <div class="col-xs-3 borderRight borderTop">
+                    <a href="#">
+                        <img src="./img/guquan_mini.png" alt="guquan">
+                        <p style="text-align: center">股权</p>
+                    </a>
+                </div>
+                <div class="col-xs-3 borderRight borderTop">
+                    <a href="#">
+                        <img src="./img/guquan_mini.png" alt="guquan">
+                        <p style="text-align: center">股权</p>
+                    </a>
+                </div>
+                <div class="col-xs-3 borderRight borderTop">
+                    <a href="#">
+                        <img src="./img/guquan_mini.png" alt="guquan">
+                        <p style="text-align: center">股权</p>
+                    </a>
+                </div>
+                <div class="col-xs-3 borderTop">
+                    <a href="#">
+                        <img src="./img/guquan_mini.png" alt="guquan">
+                        <p style="text-align: center">股权</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid gxContainer">
+        <h3 class="znText" style="text-align: center">个性化服务</h3>
+        <div>
+            <div class="row">
+                <div class="col-sm-4 col-xs-4 busblock-out busblock-out-mid">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/QQ截图20210108110427.jpg" alt="...">
+                        <div class="caption">
+                            <p>合同咨询</p>
+                            <div class="descript">
+                                <p>原价:<s>5000</s>元/次</p>
+                                <p>限价:3000元/次</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-4 busblock-out busblock-out-mid">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/QQ截图20210108110427.jpg" alt="...">
+                        <div class="caption">
+                            <p>合同咨询</p>
+                            <div class="descript">
+                                <p>原价:<s>5000</s>元/次</p>
+                                <p>限价:3000元/次</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-4 busblock-out busblock-out-mid">
+                    <div class="thumbnail" style="text-align: center">
+                        <img src="./img/QQ截图20210108110427.jpg" alt="...">
+                        <div class="caption">
+                            <p>合同咨询</p>
+                            <div class="descript">
+                                <p>原价:<s>5000</s>元/次</p>
+                                <p>限价:3000元/次</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container youshi-container">
+            <div class="youshi youshi1 col-sm-2 col-md-2 col-lg-2">
+                <span></span>
+            </div>
+            <div class="youshi youshi2 col-sm-2 col-md-2 col-lg-2">
+                <span></span>
+            </div>
+            <div class="youshi youshi3 col-sm-2 col-md-2 col-lg-2">
+                <span></span>
+            </div>
+            <div class="youshi youshi4 col-sm-2 col-md-2 col-lg-2">
+                <span></span>
+            </div>
+            <div class="youshi youshi5 col-sm-2 col-md-2 col-lg-2">
+                <span></span>
+            </div>
+            <div class="youshi youshi6 col-sm-2 col-md-2 col-lg-2">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container youshi-container2">
+            <div class="row">
+                <div class="youshi-2 youshi2-1 col-xs-4">
+                    <span class="yanshi-font">8年+</span>
+                    <p>专业律师经验</p>
+                </div>
+                <div class="youshi-2 youshi2-2 col-xs-4">
+                    <span class="yanshi-font">10万+</span>
+                    <p>司法数据支撑</p>
+                </div>
+                <div class="youshi-2 youshi2-3 col-xs-4">
+                    <span class="yanshi-font">60秒</span>
+                    <p>智能匹配条款</p>
+                </div>
+                <div class="youshi-2 youshi2-4 col-xs-4">
+                    <span class="yanshi-font">7天</span>
+                    <p>修改到满意</p>
+                </div>
+                <div class="youshi-2 youshi2-5 col-xs-4">
+                    <span class="yanshi-font">24小时</span>
+                    <p>最快回复</p>
+                </div>
+                <div class="youshi-2 youshi2-6 col-xs-4">
+                    <span class="yanshi-font">1V1</span>
+                    <p>大客户服务</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="padding-left: 30px;padding-right: 30px;text-align: center">
+        <div class="row">
+            <div class="col-sm-6 news-area-l jjj">
+                <div class="col-sm-6 news-area-l">
+                    <div id="carousel-example-generic1" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic1" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic1" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic1" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="./img/201712051123052113.jpg" alt="..." class="imgSty">
+
+                            </div>
+                            <div class="item">
+                                <img src="./img/201612061444424049.jpg" alt="..." class="imgSty">
+
+                            </div>
+                            <div class="item">
+                                <img src="./img/201708071107329034.jpg" alt="..." class="imgSty">
+
+                            </div>
+
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic1" role="button"
+                            data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic1" role="button"
+                            data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 news-area-l">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">
+                            悦活动
+                        </a>
+                        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                        <a href="#" class="list-group-item">Morbi leo risus</a>
+                        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                        <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 news-area-l">
+                <div class="col-sm-6 news-area-l">
+                    <ul class="list-group">
+                        <a href="#" class="list-group-item active">
+                            悦读
+                        </a>
+                        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                        <a href="#" class="list-group-item">Morbi leo risus</a>
+                        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                        <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    </ul>
+                </div>
+                <div class="col-sm-6 news-area-l lll">
+                    <ul class="list-group">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Morbi leo risus</li>
+                        <li class="list-group-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="background-color: #efefef">
+        <div class="row">
+            <div class="col-xs-6 col-sm-3" style="color: #7a7a7a">
+                <p style="font-size: 20px; color: #000">产品</p>
+                <p>写合同</p>
+                <p>审合同</p>
+                <p>合同顾问</p>
+            </div>
+            <div class="col-xs-6 col-sm-3" style="color: #7a7a7a">
+                <p style="font-size: 20px; color: #000">政策</p>
+                <p>服务协议</p>
+                <p>常见问题</p>
+                <p>会员政策</p>
+                <p>会员权益</p>
+                <p>定价标准</p>
+            </div>
+            <div class="col-xs-6 col-sm-3" style="color: #7a7a7a">
+                <p style="font-size: 20px; color: #000">公司</p>
+                <p>品牌故事</p>
+                <p>关于我们</p>
+                <p>联系我们</p>
+                <p>加入我们</p>
+            </div>
+            <div class="col-xs-6 col-sm-3" style="color: #7a7a7a">
+                <p style="font-size: 20px; color: #000">资源</p>
+                <p>网站地图</p>
+                <p>意见反馈</p>
+            </div>
+        </div>
+    </div>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
